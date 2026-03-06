@@ -6,11 +6,8 @@ import 'auth_service_interface.dart';
 
 class AuthService implements AuthServiceInterface {
   AuthService({FlutterSecureStorage? secureStorage})
-    : _secureStorage =
-          secureStorage ??
-          const FlutterSecureStorage(
-            aOptions: AndroidOptions(encryptedSharedPreferences: true),
-          );
+      : _secureStorage =
+            secureStorage ?? const FlutterSecureStorage();
 
   static const _keyEmail = 'auth_email';
   static const _keyPassword = 'auth_password';
@@ -18,12 +15,14 @@ class AuthService implements AuthServiceInterface {
 
   final FlutterSecureStorage _secureStorage;
 
+  @override
   Future<void> signUp(String email, String password) async {
     await _secureStorage.write(key: _keyEmail, value: email);
     await _secureStorage.write(key: _keyPassword, value: password);
     await _secureStorage.write(key: _keyLoggedIn, value: 'true');
   }
 
+  @override
   Future<void> login(String email, String password) async {
     final storedEmail = await _secureStorage.read(key: _keyEmail);
     final storedPassword = await _secureStorage.read(key: _keyPassword);
@@ -39,11 +38,13 @@ class AuthService implements AuthServiceInterface {
     await _secureStorage.write(key: _keyLoggedIn, value: 'true');
   }
 
+  @override
   Future<bool> isLoggedIn() async {
     final flag = await _secureStorage.read(key: _keyLoggedIn);
     return flag == 'true';
   }
 
+  @override
   Future<void> logout() async {
     await _secureStorage.write(key: _keyLoggedIn, value: 'false');
   }

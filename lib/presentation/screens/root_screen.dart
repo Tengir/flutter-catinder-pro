@@ -49,10 +49,12 @@ class _RootScreenState extends State<RootScreen> {
     return Consumer<AuthController>(
       builder: (context, auth, _) {
         if (!_onboardingCompleted) {
+          final analytics = context.read<AnalyticsService>();
+          final onboardingService = context.read<OnboardingService>();
           return OnboardingScreen(
             onFinished: () async {
-              await context.read<AnalyticsService>().logOnboardingComplete();
-              await context.read<OnboardingService>().setCompleted(true);
+              await analytics.logOnboardingComplete();
+              await onboardingService.setCompleted(true);
               if (!mounted) return;
               setState(() {
                 _onboardingCompleted = true;

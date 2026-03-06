@@ -1,4 +1,5 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:hw_1/domain/utils/app_strings.dart';
 
@@ -20,15 +21,18 @@ class AnalyticsService {
 
   /// Универсальная отправка события с опциональными параметрами.
   Future<void> logEvent(String name, [Map<String, Object>? parameters]) async {
-    print('STDOUT_LOG: Отправка события $name с параметрами $parameters');
+    debugPrint(
+      'STDOUT_LOG: Отправка события $name с параметрами $parameters',
+    );
     if (!_initialized && apiKey.isEmpty) return;
     if (parameters == null || parameters.isEmpty) {
       await AppMetrica.reportEvent(name);
     } else {
       await AppMetrica.reportEventWithMap(name, parameters);
     }
-    // Отладка: событие реально ушло в AppMetrica
-    print('AnalyticsService: event sent — name: $name, params: ${parameters ?? {}}');
+    debugPrint(
+      'AnalyticsService: event sent — name: $name, params: ${parameters ?? {}}',
+    );
   }
 
   /// Событие регистрации (успех или ошибка).

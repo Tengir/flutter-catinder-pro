@@ -15,38 +15,46 @@
 **Добавлено во втором ДЗ:**
 - **Онбординг** — при первом запуске показывается PageView с тремя шагами (Свайпы, Породы, Избранное), на каждом — текст и анимированная иконка (AnimatedScale). Кнопки «Далее» и «Начать». После «Начать» онбординг больше не показывается (флаг в SharedPreferences).
 - **Регистрация и вход** — экраны логина и регистрации с полями email и пароль, валидация (email по RegExp, пароль не короче 6 символов). Пароль и статус входа хранятся в **flutter_secure_storage** (keychain). После успешного входа попадаешь на главный экран с табами; при следующем запуске приложения снова сразу главный экран, без повторного логина.
-- **Архитектура** — код разнесён по слоям: `lib/data` (сервисы API, авторизации, онбординга, лайков), `lib/domain` (сущности, строки AppStrings, валидаторы), `lib/presentation` (экраны, виджеты, контроллеры). Зависимости собираются в `AppDependencies`, контроллеры через Provider.
+- **Архитектура** — код разнесён по слоям: `lib/data` (сервисы API, авторизации, онбординга, лайков, аналитики), `lib/domain` (сущности, строки AppStrings, валидаторы), `lib/presentation` (экраны, виджеты, контроллеры). Зависимости собираются в `AppDependencies`, контроллеры через Provider.
+- **Аналитика AppMetrica** — сервис `AnalyticsService` в `lib/data/services/analytics_service.dart`. Логируются события: успех/ошибка входа и регистрации, завершение онбординга. Ключ передаётся через `--dart-define=METRICA_KEY=...`; без ключа аналитика не активируется.
 - **Строки и валидация** — все тексты в `AppStrings`, валидация email/пароля в `AppValidators`, форма входа/регистрации общая (виджет `AuthForm`).
 - **Тесты** — unit-тесты на валидаторы и на `AuthController` (успех/ошибка логина и регистрации, logout, checkAuthStatus), widget-тесты на форму входа (валидация полей, успешный логин, неверный пароль). Всего 30 тестов, `flutter test` проходит.
 
+## Демо и установка
+
+- **Видеодемонстрация приложения:** [Смотреть на Яндекс.Диске](https://disk.yandex.ru/i/v-Uya_IhpXKqmA)
+- **APK:** см. папку `release/` или ссылку ниже (добавь при заливке).
+
+## Скриншоты
+
+_Добавь скриншоты приложения (онбординг, логин, главный экран и т.д.)._
+
+## Скриншоты AppMetrica
+
+_Добавь скриншоты из кабинета AppMetrica: отчёты по событиям (login_success, registration_success, onboarding_finished и т.д.)._
+
 ## Что не успел / не сделано
 
-- **Скриншоты и APK** — в репо пока нет папки со скриншотами онбординга и экранов входа/регистрации и нет готового APK. Нужно: сделать скрины (хотя бы онбординг, логин, главный экран), собрать APK командой ниже и положить файл в `release/` или выложить и дать ссылку в README.
 - **CI/CD** — GitHub Actions не настраивал: нет workflow, который бы гонял `flutter analyze` и `flutter test` на push/PR.
-- **Аналитика** — Firebase или AppMetrica не подключал, события входа/регистрации никуда не шлются.
 
 ## Как запустить
 
 1. Поставить Flutter (проверял на 3.9).
-2. Получить ключ на [thecatapi.com](https://thecatapi.com).
+2. Получить ключ на [thecatapi.com](https://thecatapi.com) и ключ приложения в [AppMetrica](https://appmetrica.yandex.ru/).
 3. В корне проекта:
    ```bash
    flutter pub get
-   flutter run --dart-define=CAT_API_KEY=твой_ключ
+   flutter run --dart-define=CAT_API_KEY=твой_ключ --dart-define=METRICA_KEY=ключ_аппметрики
    ```
-   Без ключа приложение тоже запустится, но лимиты API будут жёстче.
+   Без ключа API приложение запустится с жёсткими лимитами; без METRICA_KEY аналитика не будет отправляться.
 
 ## Как собрать APK
 
 ```bash
-flutter build apk --release --dart-define=CAT_API_KEY=твой_ключ
+flutter build apk --release --dart-define=CAT_API_KEY=твой_ключ --dart-define=METRICA_KEY=ключ_аппметрики
 ```
 
-Готовый файл: `build/app/outputs/flutter-apk/app-release.apk`. Для сдачи можно скопировать в папку `release/` и в README написать: «Скачать APK: [release/app-release.apk](release/app-release.apk)» или залить куда-то и дать ссылку.
-
-## Стек
-
-Flutter, http, cached_network_image, provider, shared_preferences, **flutter_secure_storage**, flutter_lints, flutter_launcher_icons.
+Готовый файл: `build/app/outputs/flutter-apk/app-release.apk`.
 
 ## Тесты
 
