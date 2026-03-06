@@ -24,7 +24,7 @@
 ## Демо и установка
 
 - **Видеодемонстрация приложения:** [Смотреть на Яндекс.Диске](https://disk.yandex.ru/i/v-Uya_IhpXKqmA)
-- **APK:** см. папку `release/` или ссылку ниже (добавь при заливке).
+- **APK:** https://github.com/Tengir/flutter-catinder-pro/releases/tag/v1.0.0
 
 ## Скриншоты AppMetrica
 
