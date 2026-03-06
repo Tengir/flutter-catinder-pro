@@ -26,13 +26,11 @@
 - **Видеодемонстрация приложения:** [Смотреть на Яндекс.Диске](https://disk.yandex.ru/i/v-Uya_IhpXKqmA)
 - **APK:** см. папку `release/` или ссылку ниже (добавь при заливке).
 
-## Скриншоты
-
-_Добавь скриншоты приложения (онбординг, логин, главный экран и т.д.)._
-
 ## Скриншоты AppMetrica
 
-_Добавь скриншоты из кабинета AppMetrica: отчёты по событиям (login_success, registration_success, onboarding_finished и т.д.)._
+<img width="2366" height="972" alt="image" src="https://github.com/user-attachments/assets/0a479749-b748-4a24-a8d6-7df20821392f" />
+<img width="2818" height="1411" alt="image" src="https://github.com/user-attachments/assets/f6998ae8-dbf6-40d1-8634-76021d93367e" />
+
 
 ## Как запустить
 
